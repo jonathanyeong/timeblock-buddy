@@ -25,5 +25,9 @@
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^1.15.1",
+    "date-fns": "^2.22.1"
+  }
 }
