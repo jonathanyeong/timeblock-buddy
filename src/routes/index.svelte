@@ -1,8 +1,10 @@
 <script context="module">
   import { createClient } from '@supabase/supabase-js'
 
-  const supabaseUrl = '***REMOVED***'
-  const supabaseKey = '***REMOVED***'
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+  // Delete the git history.
+
   const supabase = createClient(supabaseUrl, supabaseKey)
 
 	export function load() {
