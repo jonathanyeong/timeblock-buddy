@@ -11,10 +11,20 @@
 		return {
 			props: {
 				supabase: supabase,
-        timeblocks: setTimeblocks()
+        timeblocks: setTimeblocks(),
+        plannedBlocks: getPlannedblocks()
 			}
 		};
 	}
+
+  const getPlannedblocks = async function () {
+    let { data: planned_blocks, error } = await supabase
+      .from('planned_blocks')
+      .select('*')
+    console.log(planned_blocks);
+    return planned_blocks
+  }
+
 
   const setTimeblocks = () => {
     const numTimeblocks = 10; // 10 hours in the day
@@ -32,8 +42,11 @@
 </script>
 
 <script>
+  import Day from '$lib/Day.svelte';
+
   export let supabase;
   export let timeblocks = []
+  export let plannedBlocks
   let projectName;
 
   const saveBlock = async function(projectName, timeblocks) {
@@ -64,6 +77,19 @@
 
 <h1>Timeblock buddy</h1>
 
+{#await plannedBlocks}
+	<p>...waiting</p>
+{:then blocks}
+	<p>Planned Blocks from Supabase {JSON.stringify(blocks)}</p>
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
+
+<!-- Day View -->
+<!-- 18.times(Cell / TimeblockSlot) -->
+
+<Day date={Date.now()}/>
+<!--
 <form>
   <div class="dayView">
     {#each timeblocks as timeblock}
@@ -78,33 +104,4 @@
   <label for="projectName">Project Name</label>
   <input id="projectName" type="text" bind:value={projectName}>
   <input on:click|preventDefault={handleSubmit} type="submit" value="Submit">
-</form>
-
-<style>
-  .dayView {
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    background-color: #9CA3AF;
-  }
-  .timeblock {
-    height: 100px;
-    position: relative;
-  }
-
-  .timeblock label {
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-  }
-
-  .timeblock input {
-    width: 100%;
-    height: 100px;
-  }
-</style>
+</form> -->
