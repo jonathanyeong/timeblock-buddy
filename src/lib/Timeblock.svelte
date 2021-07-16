@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="h-20 border-2 cursor-pointer" on:click={() => setBlock(config)} class:bg-green-200={config.checked} >
+<div class="h-20 border-2 cursor-pointer hover:bg-blue-100" on:click={() => setBlock(config)} class:bg-blue-300={config.checked} >
   <!-- Add a block with an event name if there is one -->
 </div>
 
