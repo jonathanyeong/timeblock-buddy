@@ -1,6 +1,6 @@
 <script>
   import {formatISO, set, format} from 'date-fns';
-  import TimeblockSlot from '$lib/TimeblockSlot.svelte';
+  import Timeblock from '$lib/Timeblock.svelte'
   export let date = Date.now();
   // export let times = 18; // Default value
   const setTimeblocks = () => {
@@ -17,9 +17,17 @@
     return timeblocks;
   }
 </script>
-<h1>Day { formatISO(date)}</h1>
-<p>
+<h2 class="text-2xl mb-2">{ format(date, "iii, MMM d")}</h2>
+<!-- Border bottom is found on the last timeblock element -->
+<div class="w-60">
   {#each setTimeblocks() as timeblock}
-    <TimeblockSlot config={timeblock} />
+    <div class="flex">
+      <div class="flex-initial w-20">
+        <p>{timeblock.text}</p>
+      </div>
+      <div class="flex-1">
+        <Timeblock config={timeblock} />
+      </div>
+    </div>
   {/each}
-</p>
+</div>

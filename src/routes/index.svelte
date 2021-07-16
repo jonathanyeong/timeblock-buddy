@@ -67,41 +67,14 @@
     // }
     // We don't care about the data returned
   };
-
-  const handleSubmit = () => {
-    console.log("On submit")
-    saveBlock(projectName, timeblocks)
-  }
-
 </script>
 
-<h1>Timeblock buddy</h1>
-
-{#await plannedBlocks}
+<!-- {#await plannedBlocks}
 	<p>...waiting</p>
 {:then blocks}
 	<p>Planned Blocks from Supabase {JSON.stringify(blocks)}</p>
 {:catch error}
 	<p style="color: red">{error.message}</p>
-{/await}
-
-<!-- Day View -->
-<!-- 18.times(Cell / TimeblockSlot) -->
+{/await} -->
 
 <Day date={Date.now()}/>
-<!--
-<form>
-  <div class="dayView">
-    {#each timeblocks as timeblock}
-      <div class="timeblock">
-        <label for="{timeblock.id}">{timeblock.text}</label>
-        <input id="{timeblock.id}" type="checkbox" bind:checked={timeblock.checked}>
-      </div>
-    {/each}
-  </div>
-
-
-  <label for="projectName">Project Name</label>
-  <input id="projectName" type="text" bind:value={projectName}>
-  <input on:click|preventDefault={handleSubmit} type="submit" value="Submit">
-</form> -->
