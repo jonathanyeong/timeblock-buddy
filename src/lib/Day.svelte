@@ -2,6 +2,7 @@
   import {formatISO, set, format} from 'date-fns';
   import Timeblock from '$lib/Timeblock.svelte'
   export let date = Date.now();
+  export let savedBlocks = [];
   // export let times = 18; // Default value
   const setTimeblocks = () => {
     const numTimeblocks = 10; // 10 hours in the day
@@ -20,8 +21,7 @@
   let timeblocks = setTimeblocks();
 
   const handleSave = () => {
-    console.log("Save timeblocks")
-    console.log(timeblocks)
+    savedBlocks = timeblocks.filter(block => block.checked);
   }
 </script>
 <h2 class="text-2xl mb-2">{ format(date, "iii, MMM d")}</h2>
