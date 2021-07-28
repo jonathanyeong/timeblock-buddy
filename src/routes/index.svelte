@@ -28,21 +28,24 @@
 
   export let supabase;
   export let plannedBlocks
-  let projectName;
+  let taskName = "";
   let savedBlocks = [];
   $: saveBlock(savedBlocks);
 
   const saveBlock = async blocks => {
-    if (blocks.length > 0) {
+    if (blocks.length > 0 && taskName.length > 0) {
       const { error } = await supabase
         .from('planned_blocks')
         .insert([
-          { start_date_time: blocks[0].timestamp, end_date_time: blocks[blocks.length - 1].timestamp, task_name: 'STUB task name' }
+          { start_date_time: blocks[0].timestamp, end_date_time: blocks[blocks.length - 1].timestamp, task_name: taskName }
         ]);
 
       if (error) {
         console.log("There was an error!", error)
       }
+
+      taskName = "";
+      savedBlocks = [];
     }
   }
 </script>
@@ -55,4 +58,4 @@
 	<p style="color: red">{error.message}</p>
 {/await} -->
 
-<Day date={Date.now()} bind:savedBlocks={savedBlocks}/>
+<Day date={Date.now()} bind:savedBlocks={savedBlocks} bind:taskName={taskName}/>
