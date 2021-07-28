@@ -3,7 +3,6 @@
   import Timeblock from '$lib/Timeblock.svelte'
   export let date = Date.now();
   export let savedBlocks = [];
-  // export let times = 18; // Default value
   const setTimeblocks = () => {
     const numTimeblocks = 10; // 10 hours in the day
 

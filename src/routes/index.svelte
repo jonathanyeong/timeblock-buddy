@@ -1,6 +1,5 @@
 <script context="module">
   import { createClient } from '@supabase/supabase-js'
-  import { formatISO, set, format } from 'date-fns';
 
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL.toString();
   const supabaseKey = import.meta.env.VITE_SUPABASE_KEY.toString();
@@ -35,9 +34,6 @@
 
   const saveBlock = async blocks => {
     if (blocks.length > 0) {
-      console.log("Save block in index on change");
-      console.log(blocks);
-
       const { error } = await supabase
         .from('planned_blocks')
         .insert([
@@ -49,26 +45,6 @@
       }
     }
   }
-
-  // const saveBlock = async function(projectName, timeblocks) {
-  //   // TODO: Hardcoding the value
-
-  //   const selectedTimeblocks = timeblocks.filter(t => t.checked)
-  //   // TODO: Error check to make sure there's stuff selected
-
-  //   const { data, error } = await supabase
-  //     .from('timeblocks')
-  //     .insert(selectedTimeblocks.map((t) => {
-  //       return { interval: t.timestamp, project: projectName }
-  //     }));
-  //   console.log("Data is", data)
-  //   console.log("Error is", error)
-  //   // if (error) {
-  //   //   // Deal with  error;
-  //   // }
-  //   // We don't care about the data returned
-  // };
-
 </script>
 
 <!-- {#await plannedBlocks}

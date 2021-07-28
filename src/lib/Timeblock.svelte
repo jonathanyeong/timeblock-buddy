@@ -2,9 +2,6 @@
   export let config;
 
   const setBlock = (timeblock) => {
-    console.log("Clicking the timeblock");
-    console.log(timeblock);
-    // bubble up a checked value
     if (config.checked) {
       config.checked = false
     } else {
