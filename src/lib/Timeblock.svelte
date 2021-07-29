@@ -8,9 +8,11 @@
       config.checked = true
     }
   }
+
+  const taskName = config.taskName || "";
 </script>
 
 <div class="h-20 border-2 cursor-pointer hover:bg-blue-100" on:click={() => setBlock(config)} class:bg-blue-300={config.checked} >
-  <!-- Add a block with an event name if there is one -->
+  <p>{taskName}</p>
 </div>
 

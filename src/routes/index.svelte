@@ -25,6 +25,7 @@
 
 <script>
   import Day from '$lib/Day.svelte';
+  import {formatISO, parseISO, add} from 'date-fns';
 
   export let supabase;
   export let plannedBlocks
@@ -36,9 +37,15 @@
     if (blocks.length > 0 && taskName.length > 0) {
       const { error } = await supabase
         .from('planned_blocks')
-        .insert([
-          { start_date_time: blocks[0].timestamp, end_date_time: blocks[blocks.length - 1].timestamp, task_name: taskName }
-        ]);
+        .insert(
+          blocks.map((block) => {
+            return {
+              start_date_time: block.timestamp,
+              end_date_time: formatISO(add(parseISO(block.timestamp), { hours: 1 })), // TODO: Oof these functions make me sad.
+              task_name: taskName
+            }
+          })
+        );
 
       if (error) {
         console.log("There was an error!", error)
@@ -50,12 +57,10 @@
   }
 </script>
 
-<!-- {#await plannedBlocks}
-	<p>...waiting</p>
+{#await plannedBlocks}
+	<p>...refreshing blocks</p>
 {:then blocks}
-	<p>Planned Blocks from Supabase {JSON.stringify(blocks)}</p>
+  <Day date={new Date()} bind:savedBlocks={savedBlocks} bind:taskName={taskName} plannedBlocks={blocks} />
 {:catch error}
 	<p style="color: red">{error.message}</p>
-{/await} -->
-
-<Day date={Date.now()} bind:savedBlocks={savedBlocks} bind:taskName={taskName}/>
+{/await}
