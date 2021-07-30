@@ -1,5 +1,7 @@
 <script>
   export let config;
+  export let changedBlock;
+  export let blockIndex;
 
   const setBlock = (timeblock) => {
     if (config.checked) {
@@ -7,6 +9,7 @@
     } else {
       config.checked = true
     }
+    changedBlock[blockIndex] = config
   }
 
   const taskName = config.taskName || "";

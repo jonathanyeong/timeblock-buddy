@@ -31,9 +31,23 @@
   }
 
   let timeblocks = setTimeblocks();
+  let changedBlock = {};
+  let changedBlocks = {};
+  $: blockChanged(changedBlock)
 
   const handleSave = () => {
-    savedBlocks = timeblocks.filter(block => block.checked);
+    let updatedBlocks = []
+    for (const index in changedBlocks) {
+      timeblocks[parseInt(index)] = {...changedBlocks[index], taskName: taskName}
+      updatedBlocks = [...updatedBlocks, timeblocks[parseInt(index)]]
+    }
+    savedBlocks = updatedBlocks;
+  }
+
+  const blockChanged = (block) => {
+    console.log("Changed Block")
+    console.log(block);
+    changedBlocks = block
   }
 </script>
 <h2 class="text-2xl mb-2">{ format(date, "iii, MMM d")}</h2>
@@ -45,13 +59,13 @@
 
 <!-- Border bottom is found on the last timeblock element -->
 <div class="w-60">
-  {#each timeblocks as timeblock}
+  {#each timeblocks as timeblock, index}
     <div class="flex">
       <div class="flex-initial w-20">
         <p>{timeblock.text}</p>
       </div>
       <div class="flex-1">
-        <Timeblock config={timeblock} />
+        <Timeblock config={timeblock} blockIndex={index} bind:changedBlock={changedBlock} />
       </div>
     </div>
   {/each}
