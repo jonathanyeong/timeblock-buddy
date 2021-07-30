@@ -1,5 +1,7 @@
 # Timeblock Buddy
 
+**Current Status: MVP**
+
 Timeblock buddy is an app to help you plan out your day. The end goal is to have a plan that tracks changes. So you can determine how close or far off you were with your plan. This should help you adjust your schedule and estimations over time.
 
 ## Tech used
